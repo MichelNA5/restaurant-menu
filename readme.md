@@ -15,7 +15,7 @@
 
 ## Getting Started
 
-This Node.js API provides [a quick overview of the API's main functionality]. Follow the guide below to set up, run, and deploy the API.
+This Node.js API provides [a quick overview of the API's main functionality]. Follow the guide below to set up and run the API.
 
 ### Prerequisites
 
