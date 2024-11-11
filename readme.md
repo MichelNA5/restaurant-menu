@@ -1,7 +1,6 @@
 # Project Name
 
-> A restaurant menu application that manages user orders, provides the ability to customization for maximum flexibility, allows users to apply coupons on orders for discounts, join parties and add their orders to parties which can be viewed in details by getting party information
-
+> A restaurant menu application that manages user orders, offers extensive customization options for flexibility, allows users to apply discount coupons to orders, join parties, and add their orders to shared party sessions. Users can also view detailed party information.
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -9,11 +8,8 @@
   - [Installation](#installation)
 - [Usage](#usage)
   - [API Endpoints](#api-endpoints)
-  - [Environment Variables](#environment-variables)
 - [Testing](#testing)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
