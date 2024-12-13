@@ -61,16 +61,17 @@ class PartyService {
     // Get the creator's information for a given party code
     async getPartyCreatorInfo(partyCode) {
         const query = `
-            SELECT u.user_id, u.username, u.address
-            FROM user u
-            JOIN party p ON u.user_id = p.creator_user_id
-            WHERE p.party_code = ?
-        `;
+                SELECT u.user_id, u.username, u.address
+                FROM user u
+                JOIN party p ON u.user_id = p.creator_user_id
+                WHERE p.party_code = ?
+            `;
         const [user] = await this.pool.execute(query, [partyCode]);
         return user.length ? user[0] : null;
     }
 
-    // Get all orders for a given party code
+
+
     async getOrdersByPartyCode(partyCode) {
         const orders = [];
         const orderIdQuery = `
@@ -82,8 +83,8 @@ class PartyService {
         const [orderRows] = await this.pool.execute(orderIdQuery, [partyCode]);
 
         const orderDetailsQuery = `
-            SELECT mi.name, o.order_id, o.user_id, o.order_date, u.username, oi.menu_item_id, 
-                   oi.quantity, oi.customization, (oi.quantity * mi.price) AS subtotal
+            SELECT mi.name, o.order_id, o.user_id, o.order_date, u.username, 
+                oi.menu_item_id, oi.quantity, oi.customization, mi.price
             FROM \`order\` o
             JOIN \`user\` u ON o.user_id = u.user_id
             JOIN order_item oi ON o.order_id = oi.order_id
@@ -94,22 +95,42 @@ class PartyService {
 
         for (const { order_id } of orderRows) {
             const [detailsRows] = await this.pool.execute(orderDetailsQuery, [order_id]);
+
             let order = null;
+            let total = 0; // Initialize the total for the order
 
             detailsRows.forEach((row) => {
                 if (!order) {
-                    order = new PartyOrder(row.order_id, row.user_id, row.order_date, row.subtotal, row.username);
+                    order = new PartyOrder(row.order_id, row.user_id, row.order_date, 0, row.username);
                 }
 
+                // Calculate the subtotal for the item and format it to two decimal places
                 const orderItem = OrderItem.fromRow(row);
+                orderItem.subtotal = (row.quantity * row.price).toFixed(2); // Ensure subtotal is formatted as a string with two decimal places
                 order.addOrderItem(orderItem);
+
+                // Add the item's subtotal to the order total
+                total += parseFloat(orderItem.subtotal); // Accumulate each item’s subtotal
             });
 
-            if (order) orders.push(order);
+            if (order) {
+                // Set the total amount for the order and format it to two decimal places
+                order.total = total.toFixed(2); // Set the total with 2 decimal places
+                orders.push(order);
+            }
         }
 
         return orders;
     }
+
+
+
+
+
+
 }
+
+
+
 
 module.exports = new PartyService();

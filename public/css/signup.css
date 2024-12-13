@@ -1,0 +1,109 @@
+/* public/css/signup.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff176;
+    /* Vibrant yellow background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+form {
+    background-color: #ff5252;
+    /* Vibrant red background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #fff;
+    /* White text for contrast */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 4px;
+    color: #fff;
+    /* White text for labels */
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffeb3b;
+    /* Vibrant yellow button */
+    color: #d32f2f;
+    /* Dark red text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #fdd835;
+    /* Slightly darker yellow on hover */
+}
+
+#error,
+.success {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.error {
+    color: #fff;
+    /* White text for error messages */
+}
+
+.success {
+    color: #388e3c;
+    /* Green for success messages */
+}
+
+a.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #ffeb3b;
+    /* Vibrant yellow text */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a.login-link:hover {
+    color: #fdd835;
+    /* Slightly darker yellow on hover */
+}
+
+a.login-link .highlight {
+    color: #ffeb3b;
+    /* Vibrant yellow text */
+}
+
+a.login-link .highlight:hover {
+    color: #fdd835;
+    /* Slightly darker yellow on hover */
+}

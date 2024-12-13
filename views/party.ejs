@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Management</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/party.css">
+</head>
+
+<body>
+    <%- include('components/topbar') %>
+        <div class="party-container">
+            <div class="layout">
+                <%- include('components/sidebar') %>
+
+                    <div class="main-content">
+                        <h2>No active party.</h2>
+                        <button id="endParty" class="btn btn-danger">End Party</button>
+
+                        <hr>
+
+                        <h3>Add cart to party</h3>
+                        <input type="text" id="partyCode" placeholder="Enter party code">
+                        <button id="addCart" class="btn btn-warning">Add</button>
+
+                        <hr>
+
+                        <div id="createPartySection">
+                            <h3>Create a New Party</h3>
+                            <button id="createParty" class="btn btn-warning">Create</button>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <script>
+
+            // get user id
+            const userId = <%= JSON.stringify(userId) %>;
+
+            // Fetch the active party code for the user
+            fetch(`http://localhost:3000/api/party/active/${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const createPartySection = document.getElementById('createPartySection');
+                    if (data.partyCode) {
+                        document.querySelector('h2').innerText = `Active party code: ${data.partyCode}`;
+                        createPartySection.style.display = 'none'; // Hide create party section
+                    } else {
+                        document.querySelector('h2').innerText = 'No active party.';
+                        createPartySection.style.display = 'block'; // Show create party section
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching active party code:', error);
+                    document.querySelector('h2').innerText = 'No active party.';
+                    document.getElementById('createPartySection').style.display = 'block'; // Show create party section
+                });
+
+            // Create new party
+            document.getElementById('createParty').addEventListener('click', () => {
+                const code = Math.random().toString(36).substring(2, 8).toUpperCase(); // Generate code
+                fetch('http://localhost:3000/api/party/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code, userId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        location.reload(); // Refresh the page
+                    });
+            });
+
+
+            // Join the party by adding your cart as an order in this party
+            document.getElementById('addCart').addEventListener('click', () => {
+                const partyCode = document.getElementById('partyCode').value;
+
+                fetch('http://localhost:3000/cart/place-order-party', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId, couponCode: '', partyCode: partyCode })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            location.reload(); // Refresh the page
+                        } else {
+                            console.error('Error placing order:', data.message);
+                            alert(data.message); // Alert the user with the error message
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error placing order:', error);
+                        alert('An unexpected error occurred.');
+                    });
+            });
+
+            // End party
+            document.getElementById('endParty').addEventListener('click', () => {
+                fetch('http://localhost:3000/api/party/end', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ userId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        location.reload();
+                    });
+            });
+        </script>
+</body>
+
+</html>

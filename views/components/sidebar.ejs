@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/css/sidebar.css">
+<div class="sidebar">
+    <ul>
+        <li><a href="/api/menu">Menu</a></li>
+        <li><a href="<%= username ? `/api/favorite-combinations/user/${userId}` : '/api/users/v/login' %>">Favorite
+                Combos</a></li>
+        <li><a href="<%= username ? '/api/party/partyview' : '/api/users/v/login' %>">
+                party
+            </a></li>
+        <li>
+            <a href="<%= username ? `/api/orders/order-history/${username}` : '/api/users/v/login' %>">
+                Order History
+            </a>
+        </li>
+
+        <li><a href="<%= username ? '/api/party/partydetails' : '/api/users/v/login' %>">
+                party details
+            </a></li>
+
+
+    </ul>
+</div>

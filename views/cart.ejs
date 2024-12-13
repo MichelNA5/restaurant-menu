@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+    <%- include('components/topbar') %>
+        <div class="layout">
+            <%- include('components/sidebar') %>
+
+                <div class="main-content">
+                    <h1>Your Cart</h1>
+
+
+                    <!-- Cart Items Component -->
+                    <%- include('components/cartItems', { cart: cart }) %>
+
+                        <!-- Coupon Form -->
+                        <form action="/cart/apply-coupon" method="POST" class="coupon-form">
+                            <label for="couponCode">Coupon Code:</label>
+                            <input type="text" id="couponCode" name="couponCode" placeholder="Enter coupon code"
+                                value="<%= couponCode || '' %>">
+                            <button type="submit">Apply</button>
+                        </form>
+
+                        <!-- Cart Summary -->
+                        <div class="cart-summary">
+                            <h2>Cart Summary</h2>
+                            <p>Subtotal: $<%= totals.subtotal %>
+                            </p>
+                            <p>Discount: -$<%= totals.discount %>
+                            </p>
+                            <p><strong>Total: $<%= totals.total %></strong></p>
+                        </div>
+
+                        <!-- Place Order Form -->
+                        <form action="/cart/place-order" method="POST" class="place-order-form">
+                            <input type="text" name="userId" value="<%= userId %>" hidden>
+                            <input type="text" name="couponCode" value="<%= couponCode || '' %>" hidden>
+                            <button type="submit" class="place-order-button">Place Order</button>
+                            <button type="button" class="save-favorite-button"
+                                onclick="saveAsFavoriteCombination()">Save as Favorite</button>
+                        </form>
+                </div>
+        </div>
+</body>
+
+<script>
+    // Save cart items as a favorite combination to re-order 
+    async function saveAsFavoriteCombination() {
+        const combinationName = prompt("Enter a name for this favorite combination:");
+        if (!combinationName) {
+            alert("Combination name is required.");
+            return;
+        }
+
+        try {
+            // Step 1: Save the combination
+            const response = await fetch('/api/favorite-combinations/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: "<%= userId %>", name: combinationName })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Failed to save combination');
+            }
+
+            const { combination_id } = await response.json();
+
+            // Step 2: Save items to the combination
+            const items = JSON.parse('<%- JSON.stringify(cart) %>');
+            const validItems = items.filter(item => item.menu_item_id && item.quantity);
+
+            if (validItems.length === 0) {
+                alert("No valid items to save.");
+                return;
+            }
+
+            const itemPromises = validItems.map(item =>
+                fetch('/api/favorite-combinations/item', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        combination_id,
+                        menu_item_id: item.menu_item_id,
+                        quantity: item.quantity,
+                        customization: item.customization
+                    })
+                })
+            );
+
+            await Promise.all(itemPromises);
+            alert('Combination saved as favorite!');
+        } catch (error) {
+            console.error('Error saving combination:', error);
+            alert('Failed to save the combination.');
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+</html>

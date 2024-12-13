@@ -1,0 +1,33 @@
+<ul id="cart-items">
+    <% if (cart && cart.length> 0) { %>
+        <% cart.forEach(item=> { %>
+            <li>
+                <span>
+                    <%= item.name %> - $ x <%= item.quantity %>
+                </span>
+
+                <!-- Textbox for customization -->
+                <form action="/cart/customize/<%= item.menu_item_id %>" method="POST" class="customization-form">
+                    <input type="text" name="customization" value="<%= item.customization %>"
+                        placeholder="Add customization" />
+                    <button type="submit">Update Customization</button>
+                </form>
+
+                <!-- Buttons for managing quantity -->
+                <div class="button-group">
+                    <form action="/cart/increase/<%= item.menu_item_id %>" method="POST" style="display:inline;">
+                        <button type="submit">+</button>
+                    </form>
+                    <form action="/cart/decrease/<%= item.menu_item_id %>" method="POST" style="display:inline;">
+                        <button type="submit">-</button>
+                    </form>
+                    <form action="/cart/remove/<%= item.menu_item_id %>" method="POST" style="display:inline;">
+                        <button type="submit">Remove</button>
+                    </form>
+                </div>
+            </li>
+            <% }) %>
+                <% } else { %>
+                    <p>Your cart is empty.</p>
+                    <% } %>
+</ul>

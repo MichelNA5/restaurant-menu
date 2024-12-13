@@ -3,12 +3,12 @@ const FavoriteCombinationService = require('../services/favoriteCombinationServi
 
 class FavoriteCombinationController {
 
-    // Get favorite combinations by user ID
+    // Render favorite combinations for a user
     static async getFavoriteCombosByUserID(req, res) {
         try {
             const user_id = req.params.user_id;
             const combos = await FavoriteCombinationService.getFavoriteCombosByUserID(user_id);
-            res.json(combos);
+            res.render('favoriteCombos', { combinations: combos });
         } catch (err) {
             console.log(err);
             res.status(500).send('Error fetching favorite combos' + err);
@@ -70,6 +70,12 @@ class FavoriteCombinationController {
             res.status(500).send('Error fetching favorite combination items');
         }
     }
+
+
+
 }
+
+
+
 
 module.exports = FavoriteCombinationController;

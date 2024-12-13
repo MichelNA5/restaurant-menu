@@ -26,4 +26,26 @@ router.get('/getid/:username', userController.fetchUserIdByUsername);
 // Authenticate a user
 router.post('/authenticate', userController.authenticateUser);
 
+//Logout 
+router.get('/v/logout', userController.Logout);
+
+// Render the signup page
+router.get('/v/signup/', (req, res) => {
+    res.render('signup');
+});
+
+
+// Render the login page
+router.get('/v/login/', (req, res) => {
+    res.render('login');
+});
+
+// Render the profile page
+
+router.get('/v/profile', (req, res) => {
+    res.render('profile');
+});
+
+
+
 module.exports = router;  // Export the router

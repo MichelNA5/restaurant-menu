@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/menu.css">
+</head>
+
+<body>
+    <!-- Topbar -->
+    <%- include('components/topbar') %>
+
+
+        <div class="layout">
+            <!-- Sidebar -->
+            <%- include('components/sidebar') %>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <% if (menuItems && Object.keys(menuItems).length> 0) { %>
+                        <% for (const category in menuItems) { %>
+                            <h2>
+
+                                <%= category %>
+                            </h2> <!-- Display the category name -->
+                            <% menuItems[category].forEach(function(item) { %>
+                                <div class="menu-item">
+                                    <h3>
+                                        <%= item.name %>
+                                    </h3>
+                                    <p>$<%= item.price %>
+                                    </p>
+                                    <button class="add-to-cart" data-id="<%= item.menu_item_id %>"
+                                        data-name="<%= item.name %>" data-price="<%= item.price %>">
+                                        Add to cart
+                                    </button>
+                                </div>
+                                <% }); %>
+                                    <% } %>
+                                        <% } else { %>
+                                            <p>No menu items available.</p>
+                                            <% } %>
+                </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+
+                // Add functionality to all add to cart buttons
+                addToCartButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const menuItemId = this.getAttribute('data-id');
+                        const itemName = this.getAttribute('data-name');
+                        const itemPrice = this.getAttribute('data-price');
+
+                        addToCart(menuItemId, itemName, itemPrice);
+                    });
+                });
+            });
+
+            // Posting menu item to cart
+            function addToCart(menu_item_id, name, price) {
+                fetch('/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ menu_item_id, name, price })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Item added to cart:', data);
+                    })
+                    .catch(error => console.error('Error adding item to cart:', error));
+            }
+        </script>
+</body>
+
+</html>

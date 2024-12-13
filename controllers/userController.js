@@ -3,25 +3,59 @@ const userService = require('../services/userService');
 
 class UserController {
 
+
     // Authenticate a user by checking their username and password
     async authenticateUser(req, res) {
         const { username, password } = req.body;
 
         try {
-            // Check if the credentials are correct
+            // Authenticate the user using the service
             const isAuthenticated = await userService.authenticate(username, password);
+
             if (isAuthenticated) {
-                // Send success response if authentication is successful
-                res.status(200).json({ message: "Authentication successful" });
+                // Set user information in the session
+                req.session.user = { username };
+
+                try {
+                    const userId = await userService.getUserIdByUsername(username);
+                    req.session.userId = userId;
+
+                } catch (error) {
+                    console.log(error);
+                }
+
+
+
+                // Send success response with session updated
+                res.status(200).json({
+                    message: "Authentication successful",
+                    sessionUpdated: true
+                });
             } else {
-                // Send unauthorized response if authentication fails
-                res.status(401).json({ message: "Invalid username or password" });
+                // Clear any existing session in case of failed authentication
+                req.session.destroy(() => {
+                    res.status(401).json({
+                        message: "Invalid username or password",
+                        sessionUpdated: false
+                    });
+                });
             }
         } catch (error) {
             // Handle server errors during authentication
             res.status(500).json({ message: "An error occurred during authentication" });
         }
     }
+
+    async Logout(req, res) {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error destroying session:', err);
+                return res.status(500).send('Error logging out');
+            }
+            res.redirect('/api/users/v/login');
+        });
+    }
+
 
     // Retrieve and send a list of all users
     async getAllUsers(req, res) {

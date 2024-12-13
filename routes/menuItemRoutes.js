@@ -4,7 +4,7 @@ const router = express.Router();
 const MenuItemController = require('../controllers/menuItemController');
 const { validateMenuItem, validateMenuItemId } = require('../validators/menuItemValidator');
 
-// Get all menu items
+// Render all menu items
 router.get('/menu-items', MenuItemController.getAllMenuItems);
 
 // Get a menu item by ID with validation
@@ -19,4 +19,9 @@ router.put('/menu-items/:id', [validateMenuItemId, validateMenuItem], MenuItemCo
 // Delete a menu item by ID with validation
 router.delete('/menu-items/:id', validateMenuItemId, MenuItemController.deleteMenuItem);
 
+
+// Render the menu
+router.get('/menu', MenuItemController.renderMenu);
+
 module.exports = router;  // Export the router
+

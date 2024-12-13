@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css">
+
+</head>
+
+<body>
+
+    <form id="login-form">
+        <h1>Login</h1>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+        <div id="message"></div>
+
+        <!-- Add a link to the signup page -->
+        <div class="signup-link">
+            <p>Don't have an account? <a href="/api/users/v/signup">Sign up here</a></p>
+        </div>
+
+    </form>
+
+
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // message div to display errors 
+            const messageDiv = document.getElementById("message");
+
+            try {
+                const response = await fetch("http://localhost:3000/api/users/authenticate", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const result = await response.json();
+                // if authenticatioin successful
+                if (response.ok) {
+                    messageDiv.textContent = "Login successful!";
+                    messageDiv.className = "success";
+                    // Redirect user after successful login
+                    setTimeout(() => {
+                        window.location.href = "/api/menu";
+                    }, 1000);
+                    // auth not sucessful: display error in the div
+                } else {
+
+                    messageDiv.textContent = result.message || "Login failed!";
+                    messageDiv.className = "error";
+                }
+            } catch (error) {
+                messageDiv.textContent = "An error occurred. Please try again.";
+                messageDiv.className = "error";
+            }
+        });
+    </script>
+</body>
+
+</html>

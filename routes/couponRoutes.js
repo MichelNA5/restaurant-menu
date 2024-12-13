@@ -1,5 +1,5 @@
 const express = require('express');
-const CouponController = require('../controllers/CouponController');
+const CouponController = require('../controllers/couponController');
 const { validateCouponApplication, validateCouponCodeParam } = require('../validators/couponValidator');
 
 const router = express.Router();

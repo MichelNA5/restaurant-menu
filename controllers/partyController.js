@@ -6,7 +6,7 @@ module.exports = {
         try {
             const { code, userId } = req.body;
             await PartyService.createParty(code, userId);
-            res.status(201).send(`Party created with code: ${code}`);
+            res.status(201).json({ message: `Party created with code: ${code}` });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -23,10 +23,28 @@ module.exports = {
         }
     },
 
+    async isPartyActive(req, res) {
+
+        try {
+            const { partyCode } = req.params; // Retrieve partyCode from URL params
+            const isActive = await PartyService.isPartyActive(partyCode);
+
+            // Return true or false based on whether the party is active
+            if (isActive) {
+                res.status(200).json({ isActive: true, message: `Party with code ${partyCode} is active.` });
+            } else {
+                res.status(200).json({ isActive: false, message: `Party with code ${partyCode} is not active.` });
+            }
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
     // Gets the active party code for the user
     async getActivePartyCode(req, res) {
         try {
-            const { userId } = req.body;
+            const { userId } = req.params;
+            console.log(userId);
             const partyCode = await PartyService.getActivePartyCode(userId);
             partyCode ? res.status(200).json({ partyCode }) : res.status(404).json({ message: 'No active party found' });
         } catch (error) {
@@ -39,7 +57,7 @@ module.exports = {
         try {
             const { userId } = req.body;
             const success = await PartyService.endActiveParty(userId);
-            success ? res.status(200).send('Active party ended') : res.status(404).send('Active party not found!');
+            success ? res.status(200).json({ message: 'Active party ended' }) : res.status(404).json({ message: 'Active party not found!' });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -66,4 +84,6 @@ module.exports = {
             res.status(500).json({ error: error.message });
         }
     }
+
+
 };

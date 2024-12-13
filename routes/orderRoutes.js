@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
 
-// Get order history by username (username is part of the URL)
+// Render order history by username (username is part of the URL)
 router.get('/order-history/:username', orderController.getOrderHistory);
 
 // Insert a new order (request body contains userId, orderDate, status)

@@ -3,12 +3,12 @@ const orderService = require('../services/orderService');
 
 const orderController = {
 
-    // Get order history for a user
+    // Render order history for a user
     async getOrderHistory(req, res) {
         try {
             const { username } = req.params;
             const orderHistory = await orderService.getOrderHistory(username);
-            res.status(200).json(orderHistory);
+            res.render('orderHistory', { orders: orderHistory });
         } catch (error) {
             console.error('Error getting order history:', error);
             res.status(500).json({ message: 'An error occurred while fetching order history.' });
@@ -61,7 +61,9 @@ const orderController = {
             console.error('Error deleting order:', error);
             res.status(500).json({ message: 'An error occurred while deleting the order.' });
         }
-    }
+    },
+
+
 };
 
 module.exports = orderController;

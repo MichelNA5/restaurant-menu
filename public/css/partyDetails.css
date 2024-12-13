@@ -1,0 +1,125 @@
+.party-details {
+    font-family: Arial, sans-serif;
+    background-color: #fff8e1;
+    /* Light yellow background */
+    color: #333;
+    /* Dark text for contrast */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.party-details .layout {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow wrapping for smaller screens */
+}
+
+.party-details .main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff3cd;
+    /* Slightly darker yellow for main content */
+    border-left: 5px solid #ffcc00;
+    /* Yellow border for separation */
+    box-sizing: border-box;
+    /* Include padding and border in element's total width and height */
+    min-width: 300px;
+    /* Ensure content doesn't get too narrow */
+}
+
+.party-details h1,
+.party-details h2,
+.party-details h3,
+.party-details h4 {
+    color: #d32f2f;
+    /* Vibrant red for headings */
+    margin-top: 0;
+}
+
+.party-details input[type="text"] {
+    padding: 10px;
+    border: 2px solid #ffcc00;
+    /* Yellow border */
+    border-radius: 5px;
+    margin-right: 10px;
+    width: calc(100% - 40px);
+    /* Responsive width */
+    max-width: 300px;
+    /* Limit maximum width */
+    box-sizing: border-box;
+}
+
+.party-details button {
+    background-color: #d32f2f;
+    /* Red background */
+    color: #fff;
+    /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.party-details button:hover {
+    background-color: #b71c1c;
+    /* Darker red on hover */
+}
+
+.party-details #creatorDetails,
+.party-details #orderDetails {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fffde7;
+    /* Lightest yellow for detail sections */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    /* Allow horizontal scrolling if needed */
+}
+
+.party-details .menu-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #fff9c4;
+    /* Light yellow for menu items */
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.party-details .menu-item h3 {
+    margin: 0;
+}
+
+.party-details .add-to-cart {
+    background-color: #d32f2f;
+    /* Red background */
+    color: #fff;
+    /* White text */
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.party-details .add-to-cart:hover {
+    background-color: #b71c1c;
+    /* Darker red on hover */
+}
+
+@media (max-width: 768px) {
+    .party-details .layout {
+        flex-direction: column;
+        /* Stack layout on smaller screens */
+    }
+
+    .party-details .main-content {
+        border-left: none;
+        /* Remove border for smaller screens */
+        border-top: 5px solid #ffcc00;
+        /* Add top border instead */
+    }
+}

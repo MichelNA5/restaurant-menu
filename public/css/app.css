@@ -1,0 +1,51 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow: hidden;
+}
+
+
+
+
+/* Layout */
+.layout {
+    margin-top: 60px;
+    margin-left: 240px;
+    padding: 20px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Ensure first menu item has a gap */
+.layout> :first-child {
+    margin-top: 20px;
+}
+
+/* Responsive Design for Layout */
+@media (max-width: 768px) {
+    .layout {
+        margin-left: 200px;
+        padding: 15px;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .layout {
+        margin-left: 150px;
+        padding: 10px;
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 300px) {
+    .layout {
+        margin-left: 120px;
+        padding: 5px;
+        margin-top: 40px;
+    }
+}

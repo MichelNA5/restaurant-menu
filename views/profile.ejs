@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/profile.css">
+
+</head>
+
+<body>
+    <!-- Topbar -->
+    <%- include('components/topbar') %>
+
+        <div class="layout">
+            <!-- Sidebar -->
+            <%- include('components/sidebar') %>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <h2>Username: <span id="username"></span></h2>
+                    <p>Current Address:</p>
+                    <input type="text" id="address" placeholder="Enter your address" />
+                    <br>
+                    <button class="button update-button" onclick="updateAddress()">Update Address</button>
+                    <button class="button logout-button" onclick="logout()">Logout</button>
+                </div>
+        </div>
+
+        <script>
+            const userId = <%= JSON.stringify(userId) %>;
+
+            // Fetch user data
+            async function fetchUserData() {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/users/${userId}`);
+                    const user = await response.json();
+                    document.getElementById('username').textContent = user.username;
+                    document.getElementById('address').value = user.address;
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                }
+            }
+
+            // Update user address
+            async function updateAddress() {
+                const address = document.getElementById('address').value;
+                try {
+                    const response = await fetch(`http://localhost:3000/api/users/${userId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: document.getElementById('username').textContent,
+                            email: 'user@example.com', // Replace with actual email
+                            address: address
+                        })
+                    });
+
+                } catch (error) {
+                    console.error('Error updating address:', error);
+                }
+            }
+
+            // Logout function
+            function logout() {
+                fetch('/api/users/v/logout', {
+                    method: 'GET',
+                    credentials: 'same-origin'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '/api/users/v/login';
+                        } else {
+                            console.error('Logout failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error during logout:', error);
+                    });
+            }
+
+            // Initialize
+            fetchUserData();
+        </script>
+</body>
+
+</html>

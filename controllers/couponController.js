@@ -15,13 +15,12 @@ class CouponController {
     }
 
     // Get discount for a coupon code
-    async getCouponDiscount(req, res) {
-        const { code } = req.params;
+    async getCouponDiscount(couponCode) {
         try {
-            const discount = await CouponService.getCouponDiscount(code);
-            res.json({ discount });
+            const discount = await CouponService.getCouponDiscount(couponCode);
+            return { discount };
         } catch (error) {
-            res.status(500).json({ error: 'Error retrieving discount' });
+            throw new Error('Error retrieving discount');
         }
     }
 

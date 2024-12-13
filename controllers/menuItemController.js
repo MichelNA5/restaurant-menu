@@ -61,6 +61,33 @@ class MenuItemController {
             res.status(500).json({ message: 'Failed to delete menu item', error });
         }
     }
+    // Render the menu
+    static async renderMenu(req, res) {
+        try {
+
+            // Fetch the menu items from the database
+            const menuItems = await MenuItemService.getAllMenuItems();
+
+            // Group the menu items by category
+            const groupedMenuItems = menuItems.reduce((acc, item) => {
+                if (!acc[item.category_name]) {
+                    acc[item.category_name] = [];
+                }
+                acc[item.category_name].push(item);
+                return acc;
+            }, {});
+
+            // Pass both menu items and the username to the EJS template
+            res.render('menu', { menuItems: groupedMenuItems });
+        } catch (error) {
+            console.error('Error rendering menu:', error);
+            res.status(500).json({ message: 'Failed to render menu', error: error.message || error });
+        }
+    }
+
+
+
+
 }
 
 module.exports = MenuItemController;

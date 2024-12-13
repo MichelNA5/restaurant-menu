@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Combinations</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/orderHistory.css">
+</head>
+
+<body>
+    <!-- Topbar -->
+    <%- include('components/topbar') %>
+
+        <div class="layout">
+            <!-- Sidebar -->
+            <%- include('components/sidebar') %>
+
+                <!-- Main Content -->
+                <div class="main-content order-history-page">
+                    <h1>Favorite Combinations</h1>
+                    <% if (combinations && combinations.length> 0) { %>
+                        <% combinations.forEach(combination=> { %>
+                            <div class="order">
+                                <div class="order-info">
+                                    Name: <%= combination.name %>
+                                </div>
+                                <div class="order-actions">
+                                    <button class="button"
+                                        onclick="deleteCombination('<%= combination.combination_id %>')">Delete</button>
+                                    <button class="button"
+                                        onclick="reorderCombination('<%= combination.combination_id %>')">Re-order</button>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } else { %>
+                                    <p class="no-orders">No favorite combinations available.</p>
+                                    <% } %>
+                </div>
+        </div>
+
+        <script>
+            function deleteCombination(combinationId) {
+                // Implement delete functionality
+                fetch(`/api/favorite-combinations/${combinationId}`, {
+                    method: 'DELETE'
+                })
+                    .then(() => {
+                        // Reload the page after successful deletion
+                        window.location.reload();
+                    })
+                    .catch(error => console.error('Error deleting combination:', error));
+            }
+
+            function reorderCombination(combinationId) {
+                // Implement re-order functionality
+                fetch(`/cart/reorder-combination/${combinationId}`, {
+                    method: 'POST'
+                })
+                    .then(() => {
+                        // Redirect to the cart page after successful reorder
+                        window.location.href = '/cart';
+                    })
+                    .catch(error => console.error('Error reordering combination:', error));
+            }
+        </script>
+</body>
+
+</html>

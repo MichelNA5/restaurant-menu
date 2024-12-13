@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Details</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/partyDetails.css">
+    <script>
+        async function fetchPartyDetails() {
+            const partyCode = document.getElementById('partyCode').value;
+            if (!partyCode) {
+                alert('Please enter a party code');
+                return;
+            }
+
+            try {
+                // Fetch party creator details
+                const creatorResponse = await fetch(`http://localhost:3000/api/party/creator/${partyCode}`);
+                const creatorData = await creatorResponse.json();
+
+                // Check if creator data is valid
+                if (!creatorData || !creatorData.user_id) {
+                    document.getElementById('creatorDetails').innerHTML = '<p>Party not found</p>';
+                    document.getElementById('orderDetails').innerHTML = '';
+                    return;
+                }
+
+                // Fetch party order details
+                const ordersResponse = await fetch(`http://localhost:3000/api/party/${partyCode}/orders`);
+                const ordersData = await ordersResponse.json();
+
+                // Display creator details
+                document.getElementById('creatorDetails').innerHTML = `
+                    <h3>Party Creator</h3>
+                    <p>User ID: ${creatorData.user_id}</p>
+                    <p>Username: ${creatorData.username}</p>
+                    <p>Address: ${creatorData.address}</p>
+                `;
+
+                // Display order details
+                let totalPartyAmount = 0;
+                const ordersHtml = ordersData.map(order => {
+                    const orderTotal = parseFloat(order.total);
+                    totalPartyAmount += orderTotal;
+                    return `
+                        <div>
+                            <h4>Order ID: ${order.orderId}</h4>
+                            <p>Username: ${order.username}</p>
+                            <p>Order Date: ${new Date(order.orderDate).toLocaleString()}</p>
+                            <p>Order Total: $${orderTotal.toFixed(2)}</p>
+                            <ul>
+                                ${order.items.map(item => `
+                                    <li>${item.name} - Quantity: ${item.quantity} ${item.customization ? `- Customization: ${item.customization}` : ''}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }).join('');
+
+                document.getElementById('orderDetails').innerHTML = `
+                    <h3>Party Orders</h3>
+                    ${ordersHtml}
+                    <h4>Total for all orders: $${totalPartyAmount.toFixed(2)}</h4>
+                `;
+            } catch (error) {
+                console.error('Error fetching party details:', error);
+                alert('Error fetching party details. Please try again.');
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Topbar -->
+    <%- include('components/topbar') %>
+
+        <div class="party-details">
+            <div class="layout">
+                <!-- Sidebar -->
+                <%- include('components/sidebar') %>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <h1>Party Details</h1>
+                        <input type="text" id="partyCode" placeholder="Enter Party Code">
+                        <button onclick="fetchPartyDetails()">Search</button>
+
+                        <div id="creatorDetails"></div>
+                        <div id="orderDetails"></div>
+                    </div>
+            </div>
+        </div>
+</body>
+
+</html>

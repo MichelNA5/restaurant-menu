@@ -1,0 +1,80 @@
+/* Topbar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #a50000;
+    color: #fff;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    height: 40px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.topbar-links a {
+    color: #fff;
+    margin-right: 15px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.user-button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Responsive Design for Topbar */
+@media (max-width: 480px) {
+    .topbar {
+        padding: 5px 10px;
+        height: 40px;
+    }
+
+    .topbar h1 {
+        font-size: 16px;
+    }
+
+    .topbar-links a {
+        font-size: 12px;
+        margin-right: 10px;
+    }
+
+    .user-button {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 300px) {
+    .topbar {
+        padding: 5px 10px;
+        height: 40px;
+    }
+
+    .topbar h1 {
+        font-size: 14px;
+    }
+
+    .topbar-links a,
+    .user-button {
+        font-size: 10px;
+        margin-right: 5px;
+    }
+}

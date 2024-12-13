@@ -8,7 +8,7 @@ const {
     handleValidationErrors
 } = require('../validators/favoriteCombinationValidator');
 
-// Get favorite combinations for a user
+// Render favorite combinations for a user
 router.get('/user/:user_id', FavoriteCombinationController.getFavoriteCombosByUserID);
 
 // Insert a new favorite combination, with validation
@@ -25,5 +25,8 @@ router.delete('/items/:combination_id', validateParams('combination_id'), handle
 
 // Get items from a favorite combination by its ID, with validation
 router.get('/items/:combination_id', validateParams('combination_id'), handleValidationErrors, FavoriteCombinationController.getFavoriteComboItems);
+
+
+
 
 module.exports = router;  // Export the router

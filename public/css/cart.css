@@ -1,0 +1,334 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff3cd;
+    color: #000;
+}
+
+
+
+/* Main Content Styling */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff3cd;
+    color: #333;
+}
+
+.main-content h1 {
+    color: #dc3545;
+    margin-bottom: 10px;
+    /* Reduced vertical gap under header */
+    font-size: 2em;
+}
+
+/* Cart Items Styling */
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-items li {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffc107;
+    color: #000;
+    padding: 10px;
+    /* Reduced padding for compact look */
+    border-radius: 8px;
+    margin-bottom: 5px;
+    /* Tight gap between items */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#cart-items li span {
+    font-weight: bold;
+    margin-bottom: 3px;
+    /* Reduced gap between description and buttons */
+}
+
+/* Cart Button Styling (Scoped) */
+#cart-items li button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 8px;
+    /* Reduced padding for compact buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+#cart-items li button:hover {
+    background-color: #a71d2a;
+}
+
+/* Flexbox for Buttons */
+#cart-items li form {
+    display: inline;
+}
+
+#cart-items li .button-group {
+    display: flex;
+    gap: 5px;
+    /* Tight gap between buttons */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    #cart-items li {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 5px;
+        /* Tighten gaps */
+    }
+
+    #cart-items li span {
+        margin-bottom: 3px;
+        /* Reduced gap for mobile */
+    }
+
+    #cart-items li .button-group {
+        flex-wrap: wrap;
+        gap: 5px;
+        /* Reduced gap between buttons */
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #cart-items li {
+        font-size: 0.9rem;
+        padding: 8px;
+        /* Reduced padding for smaller devices */
+    }
+
+    #cart-items li button {
+        font-size: 0.8rem;
+        padding: 4px 6px;
+        /* Smaller button padding */
+    }
+
+    .customization-form input {
+        width: 90%;
+    }
+}
+
+/* Customization Form Styling */
+.customization-form {
+    display: flex;
+    gap: 5px;
+    /* Tight gap between input and button */
+    margin-top: 5px;
+    /* Minimal gap above the customization form */
+}
+
+.customization-form input {
+    flex: 1;
+    padding: 5px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.customization-form button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.customization-form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* General Layout */
+.coupon-form {
+    background-color: #fff5e6;
+    /* Soft yellow background */
+    border: 2px solid #ffc107;
+    /* Vibrant yellow border */
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coupon-form label {
+    font-weight: bold;
+    color: #d32f2f;
+    /* Vibrant red text */
+    font-size: 1.1rem;
+}
+
+.coupon-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #ffc107;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 90%;
+}
+
+.coupon-form button {
+    padding: 10px 20px;
+    background-color: #ffc107;
+    color: #d32f2f;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.coupon-form button:hover {
+    background-color: #ffa000;
+    /* Slightly darker yellow */
+}
+
+/* Cart Summary Styling */
+.cart-summary {
+    background-color: #d32f2f;
+    /* Vibrant red background */
+    color: #fff;
+    /* White text */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+
+}
+
+.cart-summary h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #ffc107;
+    /* Vibrant yellow heading */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cart-summary p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-summary p strong {
+    color: #ffc107;
+    /* Highlighted yellow for total */
+}
+
+.cart-summary p:last-child {
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-top: 2px solid #ffc107;
+    padding-top: 10px;
+}
+
+/* Place Order Form Styling */
+.place-order-form {
+    background-color: #fff5e6;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.place-order-form input[type="text"] {
+    display: none;
+}
+
+/* Button styling */
+.place-order-button,
+.save-favorite-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    text-align: center;
+}
+
+.place-order-button {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.place-order-button:hover {
+    background-color: #b71c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.save-favorite-button {
+    background-color: #ffc107;
+    color: #d32f2f;
+}
+
+.save-favorite-button:hover {
+    background-color: #ffa000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design for buttons */
+@media screen and (max-width: 768px) {
+    .place-order-form {
+        flex-direction: column;
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .place-order-button,
+    .save-favorite-button {
+        width: 100%;
+        min-width: unset;
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .place-order-form {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .place-order-button,
+    .save-favorite-button {
+        padding: 8px 16px;
+        font-size: 0.95rem;
+    }
+}

@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/css/topbar.css">
+<div class="topbar">
+    <h1>Batikh's Restaurant</h1>
+    <div class="topbar-links">
+        <a href="<%= username ? `/api/users/v/profile` : '/api/users/v/login' %>">Profile</a>
+        <a href="http://localhost:3000/cart">Cart</a>
+        <button class="user-button">
+            <% if (username) { %>
+                <%= username %>
+                    <% } else { %>
+                        <a href="/api/users/v/login"> LOGIN</a>
+                        <% } %>
+        </button>
+    </div>
+</div>

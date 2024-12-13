@@ -1,0 +1,115 @@
+/* Base styles for the party container */
+.party-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* Layout styling */
+.layout {
+    display: flex;
+    gap: 20px;
+}
+
+/* Main content styling */
+.main-content {
+    flex-grow: 1;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Headers */
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+h3 {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #666;
+}
+
+/* Input field styling */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    border-color: #ffa726;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 167, 38, 0.5);
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-danger {
+    background-color: #e53935;
+    color: white;
+}
+
+button.btn-danger:hover {
+    background-color: #c62828;
+}
+
+button.btn-warning {
+    background-color: #ffa726;
+    color: white;
+}
+
+button.btn-warning:hover {
+    background-color: #fb8c00;
+}
+
+/* Divider styling */
+hr {
+    border: none;
+    height: 1px;
+    background: #eee;
+    margin: 20px 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    h2,
+    h3 {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    input[type="text"] {
+        font-size: 14px;
+    }
+}

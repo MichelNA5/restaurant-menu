@@ -1,6 +1,7 @@
 # Project Name
 
-> A restaurant menu application that manages user orders, offers extensive customization options for flexibility, allows users to apply discount coupons to orders, join parties, and add their orders to shared party sessions. Users can also view detailed party information.
+> A restaurant menu application that manages user orders, provides the ability to customization for maximum flexibility, allows users to apply coupons on orders for discounts, join parties and add their orders to parties which can be viewed in details by getting party information
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -8,14 +9,15 @@
   - [Installation](#installation)
 - [Usage](#usage)
   - [API Endpoints](#api-endpoints)
+  - [Environment Variables](#environment-variables)
 - [Testing](#testing)
-
+- [Front-end](#front-end)
 
 ---
 
 ## Getting Started
 
-This Node.js API provides [a quick overview of the API's main functionality]. Follow the guide below to set up and run the API.
+This Node.js API provides [a quick overview of the API's main functionality]. Follow the guide below to set up, run, and deploy the API.
 
 ### Prerequisites
 
@@ -103,7 +105,20 @@ Routes related to user management and authentication.
 
 Each route includes request validation where required and covers error handling in index.js to handle both 404 and unhandled error cases.
 
+
 ### Testing
 
 Tests on all endpoints have been developed using postman and are provided in the project base 
 
+
+
+### Front-end
+/api/menu : view the menu and add items cart
+/api/users/v/login: Log-in page
+/api/users/v/signup: Sign-up page
+/api/users/v/profile: View profile and change address
+/cart: view/modify cart/ apply coupon/ place order/ save cart as a favorite combinatation
+/api/favorite-combinations/user/:userid : delete and reorder favorite combinations
+api/orders/order-history/:username: Delete and re-order orders from order history/ view order status
+/api/party/partyview: Create a party / Add cart to an active party(Join)/ View and end active party
+/api/party/partydetails: search party details using party code

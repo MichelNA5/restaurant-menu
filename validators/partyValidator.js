@@ -52,7 +52,7 @@ const validatePartyCode = [
 
 // Validator for active party code for a user
 const validateActivePartyCode = [
-    body('userId').notEmpty().withMessage('User ID is required').isInt().withMessage('User ID must be a valid integer'),
+    param('userId').notEmpty().withMessage('User ID is required').isInt().withMessage('User ID must be a valid integer'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

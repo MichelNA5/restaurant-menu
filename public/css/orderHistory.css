@@ -1,0 +1,135 @@
+.order-history-page {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 1200px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center content horizontally */
+    justify-content: center;
+    /* Center content vertically */
+    min-height: 100vh;
+    /* Full height of the viewport */
+}
+
+.order-history-page h1 {
+    color: #f1c40f;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.order-history-page .order {
+    background-color: #b71c1c;
+    color: white;
+    padding: 30px;
+    /* Increased padding */
+    margin: 15px 0;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    /* Align order info and buttons horizontally */
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-history-page .order-info {
+    font-size: 1.2rem;
+    white-space: nowrap;
+    /* Prevent wrapping */
+    overflow: hidden;
+    /* Hide overflow if content is too long */
+    text-overflow: ellipsis;
+    /* Add ellipsis for overflow text */
+    margin-right: 20px;
+    /* Space between info and buttons */
+    flex: 1;
+    /* Allow info to take up available space */
+}
+
+.order-history-page .order-actions {
+    display: flex;
+    flex-direction: column;
+    /* Stack buttons vertically */
+    gap: 10px;
+    max-width: 150px;
+    /* Limit button area width */
+}
+
+.order-history-page .button {
+    background-color: #f1c40f;
+    border: none;
+    color: black;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.order-history-page .button:hover {
+    background-color: #d4ac0d;
+}
+
+.order-history-page .no-orders {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+}
+
+/* Small Screens */
+@media (max-width: 768px) {
+    .order-history-page h1 {
+        font-size: 1.5rem;
+    }
+
+    .order-history-page .order {
+        flex-direction: column;
+        /* Stack content vertically */
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .order-history-page .order-info {
+        white-space: normal;
+        /* Allow wrapping on small screens */
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .order-history-page .button {
+        font-size: 0.9rem;
+    }
+}
+
+/* Large Screens */
+@media (min-width: 1024px) {
+    .order-history-page h1 {
+        font-size: 2.5rem;
+        /* Larger title font size */
+    }
+
+    .order-history-page .order {
+        padding: 40px;
+        /* Increased padding for larger screens */
+    }
+
+    .order-history-page .order-info {
+        font-size: 1.3rem;
+        /* Larger font size for order info */
+    }
+
+    .order-history-page .button {
+        font-size: 1.1rem;
+        /* Larger button text */
+        padding: 14px 28px;
+        /* More padding for buttons */
+    }
+}
